@@ -1,0 +1,20 @@
+def setup():
+    fullScreen()
+
+def draw():
+    background(135, 206, 230)
+    stroke(255,255,255)
+    fill(135, 206, 230)
+    rect(500, 300, 200, 300)
+    noStroke()
+    fill(255)
+    if mouseX <= 500:
+        ellipse(500, mouseY, 100, 100)
+    elif mouseX >= 700:
+        ellipse(700, mouseY, 100, 100)
+    elif mouseY <= 300:
+        ellipse(mouseX, 300, 100, 100)
+    elif mouseY >= 600:
+        ellipse(mouseX, 600, 100, 100)
+    else:
+        ellipse(mouseX, mouseY, 100, 100)
