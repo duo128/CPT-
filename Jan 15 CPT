@@ -1,0 +1,164 @@
+import random
+ballx = 800
+bally = 400
+ball_diameter = 10
+xmovement = 0
+ymovement = 0
+ball_diameter_increase = 0
+zoneX = 0
+zoneY = 0
+strikes = 0
+balls = 0
+check_swing = 0
+score = 0
+draw_frames = 0
+ 
+def setup():
+    fullScreen()
+ 
+def draw():
+    global ballx, bally, ball_diameter, xmovement, ymovement, ball_diameter_increase, zoneX, zoneY, strikes, balls, check_swing, score
+
+#Background
+    background(135, 206, 260)
+
+#StrikeZone    
+    stroke(255)
+    fill(135, 206, 260)
+    rect(900, 600, 200, 250)
+
+#Baseball
+    fill(255)
+    noStroke()
+    ellipse(ballx, bally, ball_diameter, ball_diameter)
+    bally += ymovement
+    ballx += xmovement
+    ball_diameter += ball_diameter_increase
+    #ylocation = random.randint(600, 850)
+    #if bally > ylocation:
+        #ymovement = 0
+        #xmovement = 0
+    if ball_diameter > 30:
+        ball_diameter_increase = 0
+        xmovement = 0
+        ymovement = 0
+
+#Strikes
+    stroke(255, 255, 0)
+    strokeWeight(3)
+    fill(135, 206, 260)
+    ellipse(850, 100, 50, 50)
+    ellipse(950, 100, 50, 50)
+    ellipse(1050, 100, 50, 50)
+    strokeWeight(2)
+
+#Miss/Strike
+    global draw_frames
+    if  ball_diameter >= 30 and strikes <= 2:
+        ballx = 800
+        bally = 400
+        ball_diameter = 10
+        xmovement = 0
+        ymovement = 0
+        ball_diameter_increase = 0
+        strikes += 1
+        draw_frames = 60
+    if draw_frames > 0:
+        textSize(100)
+        fill(255)
+        if strikes == 1:
+            text("STRIKE 1", 850, 500)
+        elif strikes == 2:
+            text("STRIKE 2", 850, 500)
+        draw_frames -= 1
+    if draw_frames != 61:
+        textSize(100)
+        fill(255)
+        if strikes == 1:
+            draw_strikes(850, 100)
+        elif strikes == 2:
+            draw_strikes(850, 100)
+            draw_strikes(950, 100)
+        elif strikes == 3:
+            text("Game Over!", 850, 500)
+            draw_strikes(850, 100)
+            draw_strikes(950, 100)
+            draw_strikes(1050, 100)
+
+#BALL
+    if check_swing == 0:
+        if ball_diameter == 30 and ballx not in range(895, 1105):
+            balls += 1
+        if ball_diamter == 30 and bally not in range(595, 855):
+            balls += 1
+        
+#Zone
+    noStroke()
+    fill(255)
+    zoneX = mouseX
+    zoneX = constrain(zoneX, 900, 1100)
+    zoneY = mouseY
+    zoneY = constrain(zoneY, 600, 850)
+    ellipse(zoneX, zoneY, 100, 100)
+ 
+#Score
+    textSize(50)
+    text("Score: " + str(score), 1100, 100)
+    fill(255)
+ 
+def draw_strikes(x, y):
+    noStroke()
+    fill(255, 255, 0)
+    ellipse(x, y, 50, 50)
+
+def draw_balls(x, y):
+    noStroke()
+    fill(0)
+    ellipse(x, y, 50, 50)
+ 
+def mousePressed():
+    global ballx, bally, ball_diameter, xmovement, ymovement, ball_diameter_increase, zoneX, zoneY, strikes, score 
+
+#timing is based on baseball size at time of swing
+
+#Swing
+    check_swing = 1
+ 
+#Contact
+    if dist(mouseX, mouseY, ballx, bally) < 50:
+        xmovement = 10
+        ymovement = -15
+        ball_diameter_increase = -1
+        score += 100
+        if ball_diameter < 0:
+            ballx = 800
+            bally = 400
+            ball_diameter = 10
+            xmovement = 0
+            ymovement = 0
+            ball_diameter_increase = 0
+
+    elif dist(mouseX, mouseY, ballx, bally) < 30:
+        xmovement = 10
+        ymovement = -20
+        ball_diameter_increase = -1.5
+        score += 200
+        if ball_diameter < 0:
+            ballx = 800
+            bally = 400
+            ball_diameter = 10
+            xmovement = 0
+            ymovement = 0
+            ball_diameter_increase = 0
+ 
+def keyPressed():
+    global ballx, bally, ball_diameter, xmovement, ymovement, ball_diameter_increase, zoneX, zoneY, strikes, score 
+
+    if ball_diameter == 10:
+        if strikes < 3 and draw_frames <= 0:
+            ballx = 800
+            bally = 400
+            ball_diameter = 10
+            xmovement = random.randint(5, 10)
+            ymovement = random.randint(4, 15)
+            ball_diameter_increase = 0.5
