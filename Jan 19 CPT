@@ -75,11 +75,20 @@ def draw():
         stroke(255, 255, 0)
         strokeWeight(3)
         fill(135, 206, 260)
-        ellipse(850, 100, 50, 50)
-        ellipse(950, 100, 50, 50)
         ellipse(1050, 100, 50, 50)
+        ellipse(1150, 100, 50, 50)
+        ellipse(1250, 100, 50, 50)
+
+    #Balls
+        stroke(50, 205 ,50)
+        strokeWeight(3)
+        fill(135, 206, 260)
+        ellipse(950, 175, 50, 50)
+        ellipse(1050, 175, 50, 50)
+        ellipse(1150, 175, 50, 50)
+        ellipse(1250, 175, 50, 50)
         strokeWeight(2)
-   
+        
     #Miss/Strike
         global draw_frames
         if ball_diameter >= 30 and strikes <= 2:
@@ -123,15 +132,29 @@ def draw():
         if draw_frames != 61:
             textSize(100)
             fill(255)
-            if strikes == 1:
-                draw_strikes(850, 100)
-            elif strikes == 2:
-                draw_strikes(850, 100)
-                draw_strikes(950, 100)
-            elif strikes == 3:
-                draw_strikes(850, 100)
-                draw_strikes(950, 100)
+            if balls == 1:
+                draw_balls(950, 175)
+            elif balls == 2:
+                draw_balls(950, 175)
+                draw_balls(1050, 175)
+            elif balls == 3:
+                draw_balls(950, 175)
+                draw_balls(1050, 175)
+                draw_balls(1150, 175)
+            elif balls == 4:
+                draw_balls(950, 175)
+                draw_balls(1050, 175)
+                draw_balls(1150, 175)
+                draw_balls(1250, 175)
+            elif strikes == 1:
                 draw_strikes(1050, 100)
+            elif strikes == 2:
+                draw_strikes(1050, 100)
+                draw_strikes(1150, 100)
+            elif strikes == 3:
+                draw_strikes(1050, 100)
+                draw_strikes(1150, 100)
+                draw_strikes(1250, 100)
    
     #BALL
         # if check_swing == 0:
@@ -229,6 +252,7 @@ def keyPressed():
         if key == "r":
             screen = "game"
             strikes = 0
+            balls = 0
             score = 0
             pitches = 0
         if key == "m":
