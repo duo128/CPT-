@@ -1,0 +1,41 @@
+def setup():
+    fullScreen()
+    global ballX, ballY, baseballX, baseballY, baseballmovementX, baseballmovementY
+    ballX = 0
+    ballY = 0
+    baseballX = 600
+    baseballY = 350
+    baseballmovementX = 0
+    baseballmovementY = 0
+
+def draw():
+    global ballX, ballY, baseballX, baseballY, baseballmovementX, baseballmovementY
+    background(135, 206, 230)
+    stroke(255)
+    fill(135, 206, 230)
+    rect(500, 300, 200, 300)
+    noStroke()
+    fill(255)
+    ellipse(baseballX, baseballY, 30, 30)
+    baseballX += baseballmovementX
+    baseballY += baseballmovementY
+    fill(255)
+    ballX = mouseX
+    ballX = constrain(ballX, 500, 700)
+    ballY = mouseY
+    ballY = constrain(ballY, 300, 600)
+    ellipse(ballX, ballY, 100, 100)
+
+def keyPressed():
+    global ballX, ballY, baseballX, baseballY, baseballmovementX, baseballmovementY
+    #baseballwidth = range(baseballX - 5, baseballX + 5)
+    #baseballheight = range(baseballY - 5, baseballY + 5)
+    #ballwidth = range(ballX - 50, ballX + 50)
+    #ballheight = range(ballY - 50, ballY + 50)
+    if dist(mouseX, mouseY, baseballX, baseballY) < 100:
+        baseballmovementX = 10
+        baseballmovementY = -10
+        baseballX += baseballmovementX
+        baseballY += baseballmovementY
+    #if ballX in ballwidth and ballY in ballheight:
+        #baseballmovementX = 10
