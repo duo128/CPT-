@@ -406,3 +406,5 @@ def keyPressed():
                         ball_diameter_increase = 0.6
                         xmovement = random.randint(3, 10)
                         ymovement = random.randint(4, 10)
+
+                        
