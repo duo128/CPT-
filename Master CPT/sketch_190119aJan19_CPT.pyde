@@ -361,6 +361,10 @@ def keyPressed():
             screen = "instructions"
         if key == "p":
             screen = "game"
+            strikes = 0
+            balls = 0
+            score = 0
+            pitches = 0
     if screen == "instructions":
         if key == "m":
             screen = "menu"
