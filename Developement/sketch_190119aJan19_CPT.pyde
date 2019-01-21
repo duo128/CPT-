@@ -22,6 +22,7 @@ def setup():
     global stadium
     global wainright
     global baez
+    global baez_swing
     size(1366, 768)
     welcome = loadImage("welcome.png")
     gonzalez = loadImage("gonzalez.png")
@@ -29,9 +30,10 @@ def setup():
     stadium = loadImage("stadium.png")
     wainright = loadImage("wainright.png")
     baez = loadImage("baez.png")
+    baez_swing = loadImage("baez_swing.png")
     
 def draw():
-    global screen, ballx, bally, ball_diameter, xmovement, ymovement, ball_diameter_increase, zoneX, zoneY, strikes, balls, pitches, check_swing, score, welcome, gonzalez, ichiro, stadium, wainright, baez
+    global screen, ballx, bally, ball_diameter, xmovement, ymovement, ball_diameter_increase, zoneX, zoneY, strikes, balls, pitches, check_swing, score, welcome, gonzalez, ichiro, stadium, wainright, baez, baez_swing
     
     if screen == "menu":
         background(0)
@@ -48,7 +50,7 @@ def draw():
         text("Press I for Intructions", width/2, 650)
 
     elif screen == "instructions":
-        background(135, 206, 260)
+        background(0)
         textSize(100)
         textAlign(CENTER)
         text("Intructions", width/2, 200)
@@ -65,7 +67,6 @@ def draw():
         background(135, 206, 260)
         image(stadium, 600, 350)
         image(wainright, 545, 380, 113, 172)
-        image(baez, 800, 350)
    
     #StrikeZone    
         stroke(255)
@@ -270,7 +271,13 @@ def draw():
         zoneY = mouseY
         zoneY = constrain(zoneY, 350, 600)
         ellipse(zoneX, zoneY, 100, 100)
-   
+        
+    #Hitter(Javier Baez)
+        if mousePressed == False:
+            image(baez, 800, 350)
+        else:
+            image(baez_swing, 800, 350)
+            
     #Score
         fill(255)
         textAlign(LEFT)
